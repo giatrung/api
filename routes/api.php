@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProductController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +13,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('v1')->group(function () {
+    Route::get('/users', [UserController::class, 'index'])->name('Get list user');
+    Route::get('/user/{id}', [UserController::class, 'show'])->name('Get user detail');
+    Route::post('/user', [UserController::class, 'store'])->name('Create new user');
+    Route::put('/user/{id}', [UserController::class, 'update'])->name('Update user');
 });
-Route::get('/products', [ProductController::class, 'index'])->name('get list products');
