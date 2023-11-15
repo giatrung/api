@@ -1,8 +1,6 @@
 <?php
 namespace App\Models\Contracts;
 
-// use App\Models\Contracts\BaseResource;
-
 class BaseRepository
 {
     protected string $name = 'base';
@@ -11,10 +9,11 @@ class BaseRepository
     protected string $request;
     protected string $collection;
 
-    public function __construct() {
-        $this->setProperty('resource');
-        $this->setProperty('request');
-        $this->setProperty('collection');
+    public function __construct() 
+    {
+        $this->setProperty('resource')
+            ->setProperty('request')
+            ->setProperty('collection');
     }
 
     protected function setProperty(string $property)

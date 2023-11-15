@@ -168,6 +168,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Services\CRUD\CRUDServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -185,6 +186,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         'Helper' => App\Custom\Helper::class,
         'Str' => Illuminate\Support\Str::class,
+        'Request' => Illuminate\Http\Request::class,
     ])->toArray(),
 
 ];
