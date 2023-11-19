@@ -1,22 +1,29 @@
 <?php
 namespace App\Models\Contracts;
 
+use App\Models\Contracts\BaseModel;
 class BaseRepository
 {
     protected string $name = 'base';
-
+    protected BaseModel $model;
     protected string $resource;
     protected string $request;
     protected string $collection;
 
     public function __construct() 
     {
+        $this->model = model($this->name);
         $this->setProperty('resource')
             ->setProperty('request')
             ->setProperty('collection');
     }
 
-    protected function setProperty(string $property)
+    /**
+     * Set property
+     * @param string $property
+     * @return self
+     */
+    protected function setProperty(string $property): self
     {
         $this->{$property} = \Helper::makeModelClassName($this->name, \Str::ucfirst($property));
         return $this;
@@ -27,15 +34,7 @@ class BaseRepository
      */
     public function index()
     {
-        return new $this->collection(model($this->name)::all());
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return new $this->collection($this->model::all());
     }
 
     /**
@@ -43,7 +42,7 @@ class BaseRepository
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

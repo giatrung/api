@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\User;
+namespace App\Models\UserDetail;
 
 use App\Models\Contracts\BaseResource;
 
-class UserResource extends BaseResource
+class UserDetailResource extends BaseResource
 {
     /**
      * Transform the resource into an array.
@@ -14,8 +14,7 @@ class UserResource extends BaseResource
     public function toArray(\Request $request): array
     {
         return [
-            ...parent::toArray($request), 
-            'detail' => $this->userDetail,
+            'id' => $this->id,
         ];
     }
 }

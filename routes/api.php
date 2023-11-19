@@ -21,8 +21,19 @@ if (! function_exists('ctl')) {
 |
 */
 Route::prefix('v1')->group(function () {
-    Route::get('/users', ctl('User', 'index'))->name('Get list user');
-    Route::get('/user/{id}', [UserController::class, 'show'])->name('Get user detail');
-    Route::post('/user', [UserController::class, 'store'])->name('Create new user');
-    Route::put('/user/{id}', [UserController::class, 'update'])->name('Update user');
+    //Authentication
+    Route::post('/login', ctl('Auth', 'login'));
+    Route::post('/register', ctl('Auth', 'register'));
+    Route::post('/logout', ctl('Auth', 'logout'))->middleware('auth:api');
+    Route::post('/refresh', ctl('Auth', 'refresh'));
+    //User
+    Route::get('/users', ctl('User', 'index'))->name('Get list user')->middleware('auth:api-admin');
+    Route::get('/user/{id}', ctl('User', 'show'))->name('Get an user')->middleware('auth:api');
+    Route::post('/user', ctl('User', 'store'))->name('Create new user')->middleware('auth:api');
+    Route::put('/user/{id}', ctl('User', 'update'))->name('Update user')->middleware('auth:api');
+    //User Detail
+    Route::get('/userDetails', ctl('UserDetail', 'index'))->name('Get list user detail')->middleware('auth:api-admin');
+    Route::get('/userDetails/{id}', ctl('UserDetail', 'show'))->name('Get user detail')->middleware('auth:api');
+    Route::post('/userDetails', ctl('UserDetail', 'store'))->name('Create new user detail')->middleware('auth:api');
+    Route::put('/userDetails/{id}', ctl('UserDetail', 'update'))->name('Update user detail')->middleware('auth:api');
 });
